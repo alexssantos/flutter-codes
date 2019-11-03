@@ -36,12 +36,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Todo List Title AppBar"),
       ),
-      
-	  body: ListView.builder(
+      body: ListView.builder(
         itemCount: widget.tarefas.length,
-		itemBuilder: (BuildContext ctx, int index){
-			return Text(widget.tarefas[index].title);
-		},
+        itemBuilder: (BuildContext ctx, int index) {
+          final item = widget.tarefas[index];
+          return CheckboxListTile(
+            title: Text(item.title),
+            key: Key(item.title),
+            value: item.done,
+            onChanged: (value) {
+				
+			},
+          );
+        },
       ),
     );
   }

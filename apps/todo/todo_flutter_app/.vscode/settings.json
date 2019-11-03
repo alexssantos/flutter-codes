@@ -1,0 +1,20 @@
+{
+  "workbench.tree.indent": 20,
+  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "window.zoomLevel": 1,
+  "explorer.confirmDragAndDrop": false,
+  "git.enableSmartCommit": true,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": false,
+  "editor.tabSize": 4,
+  "editor.detectIndentation": true,
+  "[dart]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": true
+  },
+  "workbench.iconTheme": "vscode-icons"
+}

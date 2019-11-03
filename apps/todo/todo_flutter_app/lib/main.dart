@@ -19,7 +19,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Text("Leading"),
+        leading: Container(
+          //margin: const EdgeInsets.all(30.0),
+          //padding: const EdgeInsets.all(10.0),
+          decoration: myBoxDecoration(),
+          child: Text("Leading"),
+        ),
         title: Text("Todo List Title AppBar"),
         actions: <Widget>[
           Icon(Icons.plus_one),
@@ -30,4 +35,12 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+BoxDecoration myBoxDecoration() {
+  return BoxDecoration(
+    border: Border.all(
+      width: 2,
+    ),
+  );
 }

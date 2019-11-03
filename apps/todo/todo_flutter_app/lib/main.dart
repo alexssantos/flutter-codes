@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter_app/models/Tarefa.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,6 +16,15 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  var tarefas = new List<Tarefa>();
+
+  HomePage() {
+    tarefas = [];
+    tarefas.add(Tarefa(title: "Tarefa 1", done: false));
+    tarefas.add(Tarefa(title: "Tarefa 2", done: true));
+    tarefas.add(Tarefa(title: "Tarefa 3", done: false));
+  }
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -24,19 +34,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(
-          //margin: const EdgeInsets.all(30.0),
-          //padding: const EdgeInsets.all(10.0),
-          decoration: myBoxDecoration(),
-          child: Text("Leading"),
-        ),
         title: Text("Todo List Title AppBar"),
-        actions: <Widget>[
-          Icon(Icons.plus_one),
-        ],
       ),
-      body: Container(
-        child: Text("Olá Mundo"),
+      
+	  body: ListView.builder(
+        itemCount: widget.tarefas.length,
+		itemBuilder: (BuildContext ctx, int index){
+			return Text(widget.tarefas[index].title);
+		},
       ),
     );
   }

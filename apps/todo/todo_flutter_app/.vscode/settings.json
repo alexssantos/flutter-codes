@@ -3,7 +3,7 @@
   "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 2,
   "explorer.confirmDragAndDrop": false,
   "git.enableSmartCommit": true,
   "editor.minimap.enabled": false,

@@ -45,8 +45,11 @@ class _HomePageState extends State<HomePage> {
             key: Key(item.title),
             value: item.done,
             onChanged: (value) {
-				
-			},
+              // ! Precisa rerenderizar mas não pode chamar daqui o metodo builder()
+              setState(() {
+                item.done = value;
+              });
+            },
           );
         },
       ),

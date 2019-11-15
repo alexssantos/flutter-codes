@@ -14,7 +14,41 @@ class _HomePageState extends State<HomePage> {
 			),
 
 			child: ListView(
-				children: <Widget>[],
+				children: <Widget>[
+
+					Padding(
+						padding: EdgeInsets.all(20),
+						child: CupertinoTextField(
+							placeholder: "Altura (cm)",
+							keyboardType: TextInputType.number,
+						),
+					),
+
+					Padding(
+						padding: EdgeInsets.all(20),
+						child: CupertinoTextField(
+							placeholder: "Peso (kg)",
+							keyboardType: TextInputType.number,
+						),
+					),
+
+					Padding(
+						padding: EdgeInsets.all(20),
+						child: Text(
+							"Calcular",
+							textAlign: TextAlign.center,
+						),
+					),
+
+					Padding(
+						padding: EdgeInsets.all(20),
+						child: CupertinoButton.filled(
+							child: Text("Calcular"),
+							onPressed: () {},
+						),
+					)
+
+				],
 			),
 		);
   	}

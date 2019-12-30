@@ -1,0 +1,4 @@
+1. Precisa de ponto e virgula.
+2. Nao roda como script. Precisa da função MAIN().
+3. IO/cmd:
+	- stdin.readLineSinc();

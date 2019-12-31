@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/Tarefa.dart';
 
@@ -24,11 +27,10 @@ class HomePage extends StatefulWidget {
   	var tarefas = new List<Tarefa>();
 
 	HomePage() {
-		tarefas = [
-			Tarefa(title: "Tarefa 1", done: false),
-			Tarefa(title: "Tarefa 2", done: true),
-			Tarefa(title: "Tarefa 3", done: false)
-		];
+		tarefas = [];
+		// Tarefa(title: "Tarefa 1", done: false),
+		// Tarefa(title: "Tarefa 2", done: true),
+		// Tarefa(title: "Tarefa 3", done: false)		
 	}
 
 	@override
@@ -38,6 +40,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 	var newTaskCtrl = new TextEditingController();
 
+	_HomePageState(){
+		loadData();
+	}
 
 	void funcAddItem(){
 		if (newTaskCtrl.text.isEmpty) return;
@@ -52,6 +57,18 @@ class _HomePageState extends State<HomePage> {
 
 	void funcRemoveItem(int index){
 		setState(() => widget.tarefas.removeAt(index) );
+	}
+
+	// chamar somente 1x. //Não pode ser chamado dentro do build
+	Future loadData() async {
+		var prefs = await SharedPreferences.getInstance();
+		var data = prefs.getString('data');
+
+		if(data != null){
+			Iterable guardDecoded = jsonDecode(data);
+			List<Tarefa> guardTarefas = guardDecoded.map((x) => Tarefa.fromJson(x)).toList();
+			setState(() => widget.tarefas = guardTarefas);
+		}
 	}
 
 	@override

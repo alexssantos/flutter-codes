@@ -41,11 +41,17 @@ class _HomePageState extends State<HomePage> {
 
 	void funcAddItem(){
 		if (newTaskCtrl.text.isEmpty) return;
+
 		setState(() {
 			widget.tarefas.add(new Tarefa(
 				title: newTaskCtrl.text,
 				done: false));
 		});
+		newTaskCtrl.clear();
+	}
+
+	void funcRemoveItem(int index){
+		setState(() => widget.tarefas.removeAt(index) );
 	}
 
 	@override
@@ -59,18 +65,33 @@ class _HomePageState extends State<HomePage> {
 				itemCount: widget.tarefas.length,
 
 				itemBuilder: (BuildContext ctx, int index) {
-					final item = widget.tarefas[index];
-				
-					return CheckboxListTile(
-						title: Text(item.title),
-						key: Key(item.title),
-						value: item.done,
 
-						onChanged: (value) {
-							//State.setState() => Precisa rerenderizar mas não pode chamar daqui o metodo builder()
-							setState(() => item.done = value);
-						},
+					final item = widget.tarefas[index];
+					
+					var dismissibleItem = new Dismissible (
+						key: Key(item.title),
+						
+						child: CheckboxListTile(
+							title: Text(item.title),
+							key: Key(item.title),
+							value: item.done,
+
+							onChanged: (value) {
+								//State.setState() => Precisa rerenderizar mas não pode chamar daqui o metodo builder()
+								setState(() => item.done = value);
+							},
+						), 
+
+						//preenche todo o espaço de fundo quando arrastado;
+						background: Container(color: Colors.red.withOpacity(0.2)),
+
+						onDismissed: (direction) {
+							if (direction == DismissDirection.startToEnd || direction == DismissDirection.endToStart)
+								funcRemoveItem(index);
+						}
 					);
+					
+					return dismissibleItem;
 				},
 			),
 
@@ -83,19 +104,11 @@ class _HomePageState extends State<HomePage> {
 	}
 }
 
-BoxDecoration myBoxDecoration() {
-	return BoxDecoration(
-		border: Border.all(
-			width: 2
-		),
-	);
-}
-
 AppBar funcSetAppBarPage(TextEditingController newTaskCtrl){
 	var _appBar = new AppBar(
 		title: TextFormField(
-			
 			controller: newTaskCtrl,
+
 			keyboardType: TextInputType.text,
 			style: TextStyle(
 				color: Colors.white, 

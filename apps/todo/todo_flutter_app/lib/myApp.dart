@@ -53,10 +53,12 @@ class _HomePageState extends State<HomePage> {
 				done: false));
 		});
 		newTaskCtrl.clear();
+		saveData();
 	}
 
 	void funcRemoveItem(int index){
 		setState(() => widget.tarefas.removeAt(index) );
+		saveData();
 	}
 
 	// chamar somente 1x. //Não pode ser chamado dentro do build
@@ -69,6 +71,11 @@ class _HomePageState extends State<HomePage> {
 			List<Tarefa> guardTarefas = guardDecoded.map((x) => Tarefa.fromJson(x)).toList();
 			setState(() => widget.tarefas = guardTarefas);
 		}
+	}
+
+	void saveData() async {
+		var prefs = await SharedPreferences.getInstance();
+		await prefs.setString('data', jsonEncode(widget.tarefas));
 	}
 
 	@override
@@ -96,6 +103,7 @@ class _HomePageState extends State<HomePage> {
 							onChanged: (value) {
 								//State.setState() => Precisa rerenderizar mas não pode chamar daqui o metodo builder()
 								setState(() => item.done = value);
+								saveData();
 							},
 						), 
 

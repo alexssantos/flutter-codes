@@ -29,7 +29,7 @@
 	},
 	//THEME
 	"workbench.iconTheme": "vscode-icons",
-	"workbench.colorTheme": "One Dark Theme",
+	"workbench.colorTheme": "One Dark Pro",
 	//EXTENSIONS
 	"code-runner.executorMap": {
 		"javascript": "node"

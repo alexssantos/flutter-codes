@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/Tarefa.dart';
 
@@ -24,11 +27,10 @@ class HomePage extends StatefulWidget {
   	var tarefas = new List<Tarefa>();
 
 	HomePage() {
-		tarefas = [
-			Tarefa(title: "Tarefa 1", done: false),
-			Tarefa(title: "Tarefa 2", done: true),
-			Tarefa(title: "Tarefa 3", done: false)
-		];
+		tarefas = [];
+		// Tarefa(title: "Tarefa 1", done: false),
+		// Tarefa(title: "Tarefa 2", done: true),
+		// Tarefa(title: "Tarefa 3", done: false)		
 	}
 
 	@override
@@ -38,14 +40,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 	var newTaskCtrl = new TextEditingController();
 
+	_HomePageState(){
+		loadData();
+	}
 
 	void funcAddItem(){
 		if (newTaskCtrl.text.isEmpty) return;
+
 		setState(() {
 			widget.tarefas.add(new Tarefa(
 				title: newTaskCtrl.text,
 				done: false));
 		});
+		newTaskCtrl.clear();
+		saveData();
+	}
+
+	void funcRemoveItem(int index){
+		setState(() => widget.tarefas.removeAt(index) );
+		saveData();
+	}
+
+	// chamar somente 1x. //Não pode ser chamado dentro do build
+	Future loadData() async {
+		var prefs = await SharedPreferences.getInstance();
+		var data = prefs.getString('data');
+
+		if(data != null){
+			Iterable guardDecoded = jsonDecode(data);
+			List<Tarefa> guardTarefas = guardDecoded.map((x) => Tarefa.fromJson(x)).toList();
+			setState(() => widget.tarefas = guardTarefas);
+		}
+	}
+
+	void saveData() async {
+		var prefs = await SharedPreferences.getInstance();
+		await prefs.setString('data', jsonEncode(widget.tarefas));
 	}
 
 	@override
@@ -59,18 +89,34 @@ class _HomePageState extends State<HomePage> {
 				itemCount: widget.tarefas.length,
 
 				itemBuilder: (BuildContext ctx, int index) {
-					final item = widget.tarefas[index];
-				
-					return CheckboxListTile(
-						title: Text(item.title),
-						key: Key(item.title),
-						value: item.done,
 
-						onChanged: (value) {
-							//State.setState() => Precisa rerenderizar mas não pode chamar daqui o metodo builder()
-							setState(() => item.done = value);
-						},
+					final item = widget.tarefas[index];
+					
+					var dismissibleItem = new Dismissible (
+						key: Key(item.title),
+						
+						child: CheckboxListTile(
+							title: Text(item.title),
+							key: Key(item.title),
+							value: item.done,
+
+							onChanged: (value) {
+								//State.setState() => Precisa rerenderizar mas não pode chamar daqui o metodo builder()
+								setState(() => item.done = value);
+								saveData();
+							},
+						), 
+
+						//preenche todo o espaço de fundo quando arrastado;
+						background: Container(color: Colors.red.withOpacity(0.2)),
+
+						onDismissed: (direction) {
+							if (direction == DismissDirection.startToEnd || direction == DismissDirection.endToStart)
+								funcRemoveItem(index);
+						}
 					);
+					
+					return dismissibleItem;
 				},
 			),
 
@@ -83,19 +129,11 @@ class _HomePageState extends State<HomePage> {
 	}
 }
 
-BoxDecoration myBoxDecoration() {
-	return BoxDecoration(
-		border: Border.all(
-			width: 2
-		),
-	);
-}
-
 AppBar funcSetAppBarPage(TextEditingController newTaskCtrl){
 	var _appBar = new AppBar(
 		title: TextFormField(
-			
 			controller: newTaskCtrl,
+
 			keyboardType: TextInputType.text,
 			style: TextStyle(
 				color: Colors.white, 

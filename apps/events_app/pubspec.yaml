@@ -1,4 +1,4 @@
-name: todo_flutter_app
+name: events_app
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -20,8 +20,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  circular_check_box: ^1.0.1
-  shared_preferences: ^0.5.6
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2

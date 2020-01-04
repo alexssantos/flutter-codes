@@ -1,0 +1,40 @@
+{
+	"workbench.tree.indent": 20,
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"window.zoomLevel": 0,
+	"explorer.confirmDragAndDrop": false,
+	"git.enableSmartCommit": true,
+	"editor.minimap.enabled": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"editor.detectIndentation": true,
+	//"files.autoSave": "afterDelay",
+	"editor.fontWeight": "100",
+	"editor.fontSize": 18,
+	"javascript.suggest.includeAutomaticOptionalChainCompletions": false,
+	"editor.wordWrapColumn": 1,
+	//LANGUAGES
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[dart]": {
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true,
+		"editor.formatOnSave": false,
+	},
+	//THEME
+	"workbench.iconTheme": "vscode-icons",
+	"workbench.colorTheme": "One Dark Theme",
+	//EXTENSIONS
+	"code-runner.executorMap": {
+		"javascript": "node"
+	},
+	"editor.defaultFormatter": "vscode.configuration-editing",
+	"editor.renderWhitespace": "all",
+	"editor.renderControlCharacters": true,
+}

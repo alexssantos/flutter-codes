@@ -25,8 +25,7 @@ class CategoryWidget extends StatelessWidget {
 			},
 
 			child: _categoryBoxItem(context, category, isSelected),
-		);
-		 
+		);		  
 	}
 }
 

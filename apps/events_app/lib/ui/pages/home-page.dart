@@ -25,7 +25,10 @@ class HomePage extends StatelessWidget {
 										
 										//TOP ITENS 
 										Padding(
-											padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 22.0),										
+											padding: const EdgeInsets.only(
+												top: 24, right: 24, bottom: 0, left: 24
+											),
+											
 											child: Row(											
 												children: <Widget>[
 													Text("LOCAL EVENTS", style: fadedTextStyle,),
@@ -41,26 +44,29 @@ class HomePage extends StatelessWidget {
 
 										//TITLE TEXT "WHAT'S UP"
 										Padding(
-											padding: const EdgeInsets.symmetric(horizontal: 32.0),
+											padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 0),
 											child: Text("What's Up", style: whiteHeadingTextStyle),
 										),
 
 										// CATEGORY ITENS
 										Padding(
-											padding: const EdgeInsets.all(8.0),
+											padding: const EdgeInsets.symmetric(vertical: 24.0),
+											child: Consumer<MyAppState>(
+												builder: (context, myState, _) {
+													
+													return SingleChildScrollView(
+														scrollDirection: Axis.horizontal,
 
-											child: SingleChildScrollView(
-												scrollDirection: Axis.horizontal,
-												child: Row(
-													children: <Widget>[
-														for (final category in categoryList)
-															CategoryWidget(category: category)
-													],
-												),
+														child: Row(
+															children: <Widget>[
+																for (final category in categoryList)
+																	CategoryWidget(category: category)
+															],
+														),
+													);
+												}
 											)
 										)
-										
-
 									],
 								),
 							),
